@@ -84,15 +84,15 @@ Solution code listed here.
   
   ### Proposed Mitigations
   * CNN
-⋅⋅⋅⋅* Implement adversarial training
-⋅⋅⋅⋅* Deploying input preprocessing
-⋅⋅⋅⋅* Implement confident thresholding
-⋅⋅⋅⋅* Add API query rate limiting
+  * * Implement adversarial training
+    * * Deploying input preprocessing
+      * * Implement confident thresholding
+        * * Add API query rate limiting
   * RAG
-⋅⋅⋅⋅* Strengthen system prompt guardrails
-⋅⋅⋅⋅* Implement input sanitization
-⋅⋅⋅⋅* Add output filtering
-⋅⋅⋅⋅* Sanitize RAG context
+  * * Strengthen system prompt guardrails
+    * * Implement input sanitization
+      * * Add output filtering
+        * * Sanitize RAG context
     
   ### Mitigation Prioritization Matrix
 
