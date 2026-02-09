@@ -27,7 +27,7 @@
  
   ## Assessment Report
   ### Executive Summary
-  The report recommends a ~no go deployment~ on deploying both the CNN model and the RAG chatbot due to these risks found during the security assessment.
+  The report recommends a `no go deployment` on deploying both the CNN model and the RAG chatbot due to these risks found during the security assessment.
     ### Key Findings
 
 Vulnerability | System | Risk
@@ -38,14 +38,14 @@ Direct Prompt Injection | RAG | HIGH
 Indirect Injection | RAG | MEDIUM
 
   ### Metrics
-   *CNN
-    *Baseline Accuracy: %
-    *Accuracy: %
-    *Transfer Effectiveness : %
-   *RAG
-    *Injection Tests: %
-    *Successful Bypasses: %
-    *Prompt Leak Attempts: %
+   * CNN
+    * Baseline Accuracy: %
+    * Accuracy: %
+    * Transfer Effectiveness : %
+   * RAG
+    * Injection Tests: %
+    * Successful Bypasses: %
+    * Prompt Leak Attempts: %
     * Information Disclosure: %
 
    ### CNN Detailed Findings
@@ -67,13 +67,13 @@ Indirect Injection | RAG | MEDIUM
 Solution code listed here.
  
   ### RAG Detailed Findings
-    *RISK: High
+    * RISK: High
     * Descriptions
-    *The RAG chatbot retrieves relevant information from a vector database and uses an LLM to generate contextual responses. The architecture is a RAG with database retrieval and the interface is a web chat interface with a  REST API and the guardrails in place are system prompt restrictions on topics it covers.
-    *Testing was conducted on a RAG chatbot. Testing began with reconnaissance and interacting with the bot to understand functionality, documenting prompt behavior and guardrails, developing prompts to execute and attempt to override system instruction, documenting successful injection techniques, identifying which attacks succeeded and why, and proposing guardrails.
-   *RAG Payloads used:
-   *Direct prompt injection descriptions
-   *Direct prompt injection attacks attempt to override the LLMs system instructions by embedding malicious instructions in user input. Successful attacks can cause the chatbot to ignore safety guidelines or can reveal confidential 
+    * The RAG chatbot retrieves relevant information from a vector database and uses an LLM to generate contextual responses. The architecture is a RAG with database retrieval and the interface is a web chat interface with a  REST API and the guardrails in place are system prompt restrictions on topics it covers.
+    * Testing was conducted on a RAG chatbot. Testing began with reconnaissance and interacting with the bot to understand functionality, documenting prompt behavior and guardrails, developing prompts to execute and attempt to override system instruction, documenting successful injection techniques, identifying which attacks succeeded and why, and proposing guardrails.
+   * RAG Payloads used:
+   * Direct prompt injection descriptions
+   * Direct prompt injection attacks attempt to override the LLMs system instructions by embedding malicious instructions in user input. Successful attacks can cause the chatbot to ignore safety guidelines or can reveal confidential 
    * Tested four categories of injection techniques with role playing, goal hijacking, instruction obfuscation, and context manipulation. A total of 16 unique payloads were tests.
    * The tests were that 6 of 16 payloads achieved partial or full bypass of the chatbot’s safety guardrails. Role playing attacks were most successful with a majority of attacks causing the bot to acknowledge the adoption of an alternate persona.
    * Payloads
@@ -85,16 +85,16 @@ Solution code listed here.
   
   ### Proposed Mitigations
   * CNN
-  * Implement adversarial training
-  * Deploying input preprocessing
-  * Implement confident thresholding
-  * Add API query rate limiting
+   * Implement adversarial training
+   * Deploying input preprocessing
+   * Implement confident thresholding
+   * Add API query rate limiting
   * RAG
-  * Strengthen system prompt guardrails
-  * Implement input sanitization
-  * Add output filtering
-  * Sanitize RAG context
-  * 
+   * Strengthen system prompt guardrails
+   * Implement input sanitization
+   * Add output filtering
+   * Sanitize RAG context
+    
   ### Mitigation Prioritization Matrix
 
   | Mitigation        | System           | Priority  | Effort  | Timeline  | 
