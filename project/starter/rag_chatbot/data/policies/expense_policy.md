@@ -1,0 +1,1 @@
+Only approved business expenses are eligible for reimbursement.

@@ -1,0 +1,11 @@
+Section,Criterion,Points,Pass Condition
+Architecture,Custom CNN used instead of pretrained ResNet,10,model.py shows simple CNN trained from scratch
+Attacks,FGSM evasion implemented,10,attack script exists and evidence of degraded accuracy provided
+Attacks,Label-flipping poisoning implemented,10,poisoning script exists and results documented
+Attacks,Prompt injection executed,10,transcript included
+Attacks,RAG data exfiltration attempted,10,evidence included
+Attacks,Supply-chain analysis completed,10,Trivy findings summarized
+Documentation,Red Team Charter included,10,charter completed
+Documentation,Executive Risk Summary included,10,summary completed
+Documentation,Reproduction steps included,10,steps completed
+Evidence,Artifacts are clear and internally consistent,10,"metrics, logs, and narrative align"
