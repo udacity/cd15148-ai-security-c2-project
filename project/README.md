@@ -12,30 +12,19 @@ project/
 │   ├── .env.example
 │   └── README.md
 │
-├── solution/             # Reference solution
+├── solution/             # Reference solution + submission artifacts
 │   ├── classifier/       # CNN + training pipeline
 │   ├── rag_chatbot/      # Complete RAG chatbot
 │   ├── attacks/          # Completed attack scripts
-│   └── notebooks/        # FGSM and Poisoning walkthroughs
+│   ├── 00–07_*.md/json   # Example submission artifacts
+│   └── README.md
 │
-├── SUBMISSION/           # Example submission artifacts
-│   ├── 00_red_team_charter.md
-│   ├── 01_overview.md
-│   ├── 02_attack_matrix.md
-│   ├── 03_prompt_injection_transcript.md
-│   ├── 04_poisoning_results.md
-│   ├── 05_executive_risk_summary.md
-│   ├── 06_trivy_report.json
-│   └── 07_reproduction_steps.md
-│
-├── instructor/           # Instructor-only files
-│   ├── SMOKE_TEST_CHECKLIST.md
-│   ├── BLOCKER_REGISTER.md
-│   ├── DATASET_MANIFEST.md
-│   └── VALIDATION_NOTES.md
-│
-└── grader/               # Reviewer rubric
-    └── Udacity_Reviewer_Rubric.csv
+└── docs/                 # Project instructions, rubric, instructor notes
+    ├── Udacity_Reviewer_Rubric.csv
+    ├── SMOKE_TEST_CHECKLIST.md
+    ├── BLOCKER_REGISTER.md
+    ├── DATASET_MANIFEST.md
+    └── VALIDATION_NOTES.md
 ```
 
 ## License
