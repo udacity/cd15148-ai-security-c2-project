@@ -1,9 +1,19 @@
-# Purpose of This Repo
+# AI System Compromise & Resilience Assessment (Finance Edition)
 
-This repo is meant to be used to keep things organized during content development and act as the source of truth for all projects related to this course.
+A capstone project for the Udacity AI Security nanodegree (C2). Students act as Junior AI Red Team Operators executing 5 adversarial attacks against a financial AI system.
 
-## Folder Structure
+## Project Structure
 
-### Project Folder
+All project files are in the `project/` directory:
 
-The `project` folder should contain all files and instructions necessary for setup. If possible, a set of instructions should be provided for both Udacity workspaces and a way to work locally (for both MacOS and Windows OS). At a minimum, one set of instructions should be provided. A `README` template has been provided in the project folder. This template layout should be used to write your README.
+```
+project/
+├── instructions/       # 9-page step-by-step project instructions
+├── starter/            # Student starting files (attack scaffolds + given infrastructure)
+├── solution/           # Complete reference solution with real results
+├── docs/               # Instructor-facing materials (rubric, smoke test, dataset manifest)
+├── requirements.txt    # All Python dependencies
+└── .gitignore
+```
+
+See `project/README.md` for full details on the 5 attacks and quick start guide.

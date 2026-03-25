@@ -1,11 +1,11 @@
-Section,Criterion,Points,Pass Condition
-Architecture,Custom CNN used instead of pretrained ResNet,10,model.py shows simple CNN trained from scratch
-Attacks,FGSM evasion implemented,10,attack script exists and evidence of degraded accuracy provided
-Attacks,Label-flipping poisoning implemented,10,poisoning script exists and results documented
-Attacks,Prompt injection executed,10,transcript included
-Attacks,RAG data exfiltration attempted,10,evidence included
-Attacks,Supply-chain analysis completed,10,Trivy findings summarized
-Documentation,Red Team Charter included,10,charter completed
-Documentation,Executive Risk Summary included,10,summary completed
-Documentation,Reproduction steps included,10,steps completed
-Evidence,Artifacts are clear and internally consistent,10,"metrics, logs, and narrative align"
+Section,Criteria,Submission Requirements,Reviewer Tip
+Red Team Charter & Reconnaissance,"Document the scope and objectives of the red team engagement.","Charter includes: engagement details, objectives for all 5 attack vectors, in-scope/out-of-scope, rules of engagement, success criteria.","Fail if charter not submitted. Pass if all 5 vectors listed. Fail if scope section missing."
+Classifier Adversarial Attacks,"Implement a white-box FGSM evasion attack against the receipt classifier.","01_fgsm_evasion.py implements FGSM formula correctly. Gradients computed w.r.t. input. At least 3 epsilon values. Adversarial accuracy decreases with epsilon. JSON output saved.","Fail if FGSM formula incorrect. Fail if gradients computed on weights not inputs. Fail if <3 epsilons."
+Classifier Adversarial Attacks,"Implement a label-flip data poisoning attack and measure its impact.","02_label_flip_poisoning.py flips ≤10% of training labels. Test set stays clean. Before/after metrics include accuracy, precision, recall, F1. Accuracy drop ≥5pp.","Fail if test set also poisoned. Fail if accuracy drop <5pp — suggest increasing flip rate."
+RAG Chatbot Attacks,"Execute prompt injection attacks using multiple techniques.","03_prompt_injection.py has ≥5 distinct techniques. Transcript shows prompts, responses, and analysis of success/failure.","Fail if <5 prompts. Fail if techniques are just reworded versions. Pass if not all succeed — analysis of failures is valuable."
+RAG Chatbot Attacks,"Demonstrate data exfiltration from the RAG vector store.","04_data_exfiltration.py has ≥5 queries. Evidence shows confidential data in answers or sources. Root cause analysis explains architectural vulnerability.","Pass if CONFIDENTIAL appears in sources even if LLM refuses content. Fail if no evidence documented."
+Supply Chain Analysis,"Analyze supply chain vulnerabilities via Trivy report and Dockerfile.","05_supply_chain_analysis.py parses Trivy JSON by severity. Identifies HIGH CVEs. Finds ≥3 Dockerfile issues with remediation.","Fail if script reports 0 vulns. Fail if <3 Dockerfile issues. Pass if root-as-user identified."
+Results Comparison,"Compare and analyze results across attack conditions.","FGSM table with ≥3 epsilons. Clean vs poisoned metrics side-by-side. Confusion matrices provided. Written analysis interprets results.","Fail if no comparison tables. Fail if only accuracy reported. Pass with comment if analysis restates numbers without interpretation."
+Reporting,"Write an executive risk summary for business audience.","Risk dashboard with severity per system. Business impact for each finding. Prioritized remediation table.","Fail if reads as technical report. Pass if each finding has severity and business impact sentence."
+Reporting,"Document reproduction steps for all findings.","Setup instructions, exact commands, expected outputs, summary table.","Fail if not submitted. Pass if commands are copy-pasteable in fresh environment."
+Code Quality,"Write functional and reproducible attack scripts.","All 5 scripts execute without errors. Each produces output. Scripts use provided argparse defaults.","Fail if any script throws unhandled exception. Do not fail for code style alone."
