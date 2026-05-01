@@ -4,6 +4,8 @@ __pycache__/
 .env
 *.pt
 !starter/classifier/checkpoints/receipt_cnn_clean.pt
+!solution/classifier/checkpoints/receipt_cnn_clean.pt
+!solution/classifier/checkpoints/receipt_cnn_poisoned.pt
 faiss_index/
 balanced_data/
 poisoned_data/
