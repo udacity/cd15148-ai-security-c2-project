@@ -8,14 +8,23 @@ Usage:
 """
 import argparse
 import os
+import random
+
+import numpy as np
 import torch
 from model import ReceiptCNN
 from data import get_data_loaders
 
+SEED = 42
+random.seed(SEED)
+np.random.seed(SEED)
+torch.manual_seed(SEED)
+torch.cuda.manual_seed_all(SEED)
+
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 
 
-def train(data_dir="balanced_data", epochs=5, lr=0.001, batch_size=32,
+def train(data_dir="balanced_data", epochs=15, lr=0.001, batch_size=32,
           checkpoint_name="receipt_cnn_clean.pt"):
     train_loader, _ = get_data_loaders(data_dir, batch_size=batch_size)
 
@@ -51,7 +60,7 @@ def train(data_dir="balanced_data", epochs=5, lr=0.001, batch_size=32,
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description="Train ReceiptCNN")
     parser.add_argument("--data-dir", default="balanced_data")
-    parser.add_argument("--epochs", type=int, default=5)
+    parser.add_argument("--epochs", type=int, default=15)
     parser.add_argument("--lr", type=float, default=0.001)
     parser.add_argument("--batch-size", type=int, default=32)
     parser.add_argument("--checkpoint-name", default="receipt_cnn_clean.pt")
