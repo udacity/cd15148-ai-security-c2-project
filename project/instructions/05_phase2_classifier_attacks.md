@@ -37,6 +37,17 @@ Open `attacks/01_fgsm_evasion.py`. You need to implement:
    - Apply `fgsm_attack()` to create the adversarial image
    - Evaluate the model on the perturbed image
 
+3. **Visualize the attacks for FGSM `visualize_fgsm()`**
+   - Use matplotlib to visualize the clean image and then adversarial image
+   - Create a title that describes the image and the epsilon used
+   - Use the same image for each of the evaluations
+   - Note where the image starts to degrade and where a target would start to notice changes in the image 
+   - An attacker would like to change the outcome of a classifier without detection
+   - Save each image as a PNG called 'fgsm_results_<image_name>_<epsilon>.png'
+
+4. **Expectations**
+   - There should be gradual degradation of the accuracy of the model as episolon increases for FGSM
+
 ### Run and Record Results
 
 ```bash
@@ -44,7 +55,7 @@ cd attacks
 python 01_fgsm_evasion.py
 ```
 
-Record the epsilon sweep results in `docs/fgsm_results_template.md`.
+Record the epsilon sweep results in `docs/fgsm_results_template.md`. Include the images and commentary on when FGSM degrades the results of the image.
 
 ---
 
