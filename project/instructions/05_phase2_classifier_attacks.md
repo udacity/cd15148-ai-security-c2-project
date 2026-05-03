@@ -101,6 +101,10 @@ python evaluate.py --model-path checkpoints/receipt_cnn_poisoned.pt --test-dir b
 python evaluate.py --model-path checkpoints/receipt_cnn_clean.pt --test-dir balanced_data/test
 ```
 
+To save evaluation artifacts, pass `--results-dir <folder>` to `evaluate.py`.
+This writes `metrics.json` and `confusion_matrix.png` into the target folder.
+If no folder is specified, evaluation results are only printed to the screen via `print_metrics()`.
+
 Record the before/after metrics in `docs/poisoning_results_template.md`. Pay attention to:
 - Overall accuracy change
 - Per-class precision and recall
