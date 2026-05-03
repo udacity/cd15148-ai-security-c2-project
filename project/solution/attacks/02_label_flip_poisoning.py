@@ -13,7 +13,14 @@ import shutil
 import random
 import argparse
 
+import matplotlib
+
+matplotlib.use("Agg")
+import matplotlib.pyplot as plt
+
 IMAGE_EXTENSIONS = {".jpg", ".jpeg", ".png", ".bmp", ".gif", ".webp"}
+CLASSES = ["receipt", "non_receipt"]
+RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results", "02_label_flip")
 
 
 def poison_dataset(source_root, target_root, flip_ratio=0.05, seed=42):
@@ -29,7 +36,7 @@ def poison_dataset(source_root, target_root, flip_ratio=0.05, seed=42):
     flipped = 0
     total = 0
 
-    for cls in ["receipt", "non_receipt"]:
+    for cls in CLASSES:
         src_dir = os.path.join(target_root, "train", cls)
         other_cls = "non_receipt" if cls == "receipt" else "receipt"
         dst_dir = os.path.join(target_root, "train", other_cls)
@@ -61,13 +68,103 @@ def poison_dataset(source_root, target_root, flip_ratio=0.05, seed=42):
     print(f"Actual flip rate: {flipped / total:.2%}")
 
     for split in ["train", "test"]:
-        for cls in ["receipt", "non_receipt"]:
+        for cls in CLASSES:
             d = os.path.join(target_root, split, cls)
             count = len([
                 f for f in os.listdir(d)
                 if os.path.splitext(f)[1].lower() in IMAGE_EXTENSIONS
             ])
             print(f"  {split}/{cls}: {count}")
+
+
+def visualize_flip(source_root, target_root, num_images=5, output_dir=RESULTS_DIR, seed=42):
+    """Save a grid showing clean labels beside their flipped poisoned labels."""
+    flipped_samples = []
+
+    for poisoned_label in CLASSES:
+        poisoned_dir = os.path.join(target_root, "train", poisoned_label)
+        if not os.path.isdir(poisoned_dir):
+            continue
+
+        for filename in os.listdir(poisoned_dir):
+            poisoned_path = os.path.join(poisoned_dir, filename)
+            if (
+                not os.path.isfile(poisoned_path)
+                or os.path.splitext(filename)[1].lower() not in IMAGE_EXTENSIONS
+            ):
+                continue
+
+            original_label = None
+            original_filename = None
+            for cls in CLASSES:
+                prefix = f"flipped_{cls}_"
+                if filename.startswith(prefix):
+                    original_label = cls
+                    original_filename = filename[len(prefix):]
+                    break
+
+            if original_label is None:
+                continue
+
+            clean_path = os.path.join(
+                source_root,
+                "train",
+                original_label,
+                original_filename,
+            )
+            if os.path.exists(clean_path):
+                flipped_samples.append({
+                    "clean_path": clean_path,
+                    "poisoned_path": poisoned_path,
+                    "original_label": original_label,
+                    "poisoned_label": poisoned_label,
+                    "filename": original_filename,
+                })
+
+    if not flipped_samples:
+        print("No flipped images found to visualize.")
+        return None
+
+    rng = random.Random(seed)
+    sample_count = min(num_images, len(flipped_samples))
+    samples = rng.sample(flipped_samples, sample_count)
+
+    fig, axes = plt.subplots(sample_count, 2, figsize=(8, 3 * sample_count))
+    if sample_count == 1:
+        axes = [axes]
+
+    for row, sample in enumerate(samples):
+        clean_img = plt.imread(sample["clean_path"])
+        poisoned_img = plt.imread(sample["poisoned_path"])
+
+        axes[row][0].imshow(clean_img)
+        axes[row][0].set_title(
+            f"Clean: {sample['original_label']}\n{sample['filename']}",
+            fontsize=9,
+        )
+        axes[row][0].axis("off")
+
+        axes[row][1].imshow(poisoned_img)
+        axes[row][1].set_title(
+            f"Flipped label: {sample['poisoned_label']}\n"
+            f"from {sample['original_label']}",
+            fontsize=9,
+        )
+        axes[row][1].axis("off")
+
+    fig.suptitle(
+        f"Label Flip Poisoning Samples ({sample_count} images)",
+        fontsize=12,
+    )
+    fig.tight_layout()
+
+    os.makedirs(output_dir, exist_ok=True)
+    output_path = os.path.join(output_dir, f"label_flip_results_{sample_count}.png")
+    fig.savefig(output_path, dpi=150, bbox_inches="tight")
+    plt.close(fig)
+
+    print(f"Label flip visualization saved to: {output_path}")
+    return output_path
 
 
 if __name__ == "__main__":
@@ -84,6 +181,15 @@ if __name__ == "__main__":
     )
     parser.add_argument("--flip-rate", type=float, default=0.05)
     parser.add_argument("--seed", type=int, default=42)
+    parser.add_argument("--visualize-count", type=int, default=5)
+    parser.add_argument("--results-dir", default=RESULTS_DIR)
     args = parser.parse_args()
 
     poison_dataset(args.source, args.target, args.flip_rate, args.seed)
+    visualize_flip(
+        args.source,
+        args.target,
+        num_images=args.visualize_count,
+        output_dir=args.results_dir,
+        seed=args.seed,
+    )

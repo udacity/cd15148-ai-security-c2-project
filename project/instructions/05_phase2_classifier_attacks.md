@@ -77,6 +77,13 @@ Open `attacks/02_label_flip_poisoning.py`. You need to implement:
    - Randomly select that many files
    - Move them to the opposite class folder (use a prefix to avoid name collisions)
 
+2. **Visualize the data attacks via  `visualize_flip()`**
+   - Use matplotlib to visualize the flipped label images
+   - Sample clean and flipped images to confirm that the labels are indeed flipped
+   - Create a title that describes the image and the label flip
+   - Look at least at five images
+   - Save each image as a PNG called 'label_flip_results_<number_of_images>.png'
+
 ### Run, Retrain, and Compare
 
 ```bash
@@ -98,3 +105,4 @@ Record the before/after metrics in `docs/poisoning_results_template.md`. Pay att
 - Overall accuracy change
 - Per-class precision and recall
 - The confusion matrix pattern
+- Confirming the label flipping worked
