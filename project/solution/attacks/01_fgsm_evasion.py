@@ -25,6 +25,7 @@ from torchvision import datasets, transforms
 from model import ReceiptCNN
 
 DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results", "01_fgsm")
 
 
 def fgsm_attack(image, epsilon, data_grad):
@@ -180,8 +181,12 @@ def main():
         default=os.path.join(os.path.dirname(__file__),
                              "..", "classifier", "balanced_data", "test"),
     )
-    parser.add_argument("--output", default="fgsm_results.json")
+    parser.add_argument("--output", default=os.path.join(RESULTS_DIR, "fgsm_results.json"))
     args = parser.parse_args()
+    if not os.path.dirname(args.output):
+        args.output = os.path.join(RESULTS_DIR, args.output)
+    results_dir = os.path.dirname(args.output)
+    os.makedirs(results_dir, exist_ok=True)
 
     epsilons = [0.0, 0.01, 0.03, 0.05, 0.1, 0.15]
     results = []
@@ -194,7 +199,7 @@ def main():
     for eps in epsilons:
         r = evaluate_fgsm(args.model_path, args.test_dir, eps)
         results.append(r)
-        visualize_fgsm(args.model_path, args.test_dir, eps)
+        visualize_fgsm(args.model_path, args.test_dir, eps, output_dir=results_dir)
         print(f"{eps:>10.3f} {r['clean_accuracy']:>12.4f} {r['adversarial_accuracy']:>12.4f} {r['attack_success_rate']:>12.4f}")
 
     with open(args.output, "w") as f:
