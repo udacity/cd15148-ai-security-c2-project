@@ -11,7 +11,10 @@ Usage:
 """
 import json
 import argparse
+import os
 import requests
+
+RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results", "03_prompt_injection")
 
 SYSTEM_PROMPT_FRAGMENTS = [
     "You are an expense policy assistant for FinanceGuard Inc.",
@@ -175,8 +178,14 @@ def run_injection(url, prompt_data):
 def main():
     parser = argparse.ArgumentParser(description="Prompt Injection Attack")
     parser.add_argument("--url", default="http://localhost:5001/chat")
-    parser.add_argument("--output", default="prompt_injection_results.json")
+    parser.add_argument(
+        "--output",
+        default=os.path.join(RESULTS_DIR, "prompt_injection_results.json"),
+    )
     args = parser.parse_args()
+    if not os.path.dirname(args.output):
+        args.output = os.path.join(RESULTS_DIR, args.output)
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
 
     print(f"Target: {args.url}")
     print(f"Running {len(INJECTION_PROMPTS)} injection attempts...\n")
