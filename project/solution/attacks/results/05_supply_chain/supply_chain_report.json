@@ -1,0 +1,185 @@
+{
+  "summary": {
+    "total_vulnerabilities": 804,
+    "severity_breakdown": {
+      "LOW": 601,
+      "MEDIUM": 160,
+      "HIGH": 34,
+      "UNKNOWN": 9
+    },
+    "dockerfile_issues": 6
+  },
+  "high_severity_vulnerabilities": [
+    {
+      "id": "CVE-2013-7445",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: memory exhaustion via crafted Graphics Execution Manager (GEM) objects"
+    },
+    {
+      "id": "CVE-2019-19449",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: mounting a crafted f2fs filesystem image can lead to slab-out-of-bounds read access in f2fs_build_segment_manager in fs/f2fs/segment.c"
+    },
+    {
+      "id": "CVE-2019-19814",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: out-of-bounds write in __remove_dirty_segment in fs/f2fs/segment.c"
+    },
+    {
+      "id": "CVE-2021-3847",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: low-privileged user privileges escalation"
+    },
+    {
+      "id": "CVE-2021-3864",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: descendant's dumpable setting with certain SUID binaries"
+    },
+    {
+      "id": "CVE-2024-21803",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: bluetooth: use-after-free vulnerability in af_bluetooth.c"
+    },
+    {
+      "id": "CVE-2024-58015",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: wifi: ath12k: Fix for out-of bound access error"
+    },
+    {
+      "id": "CVE-2024-58093",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: Linux kernel: PCI/ASPM use-after-free during hot-unplug"
+    },
+    {
+      "id": "CVE-2025-22104",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: ibmvnic: Use kernel helpers for hex dumps"
+    },
+    {
+      "id": "CVE-2025-38137",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: PCI/pwrctrl: Cancel outstanding rescan work when unregistering"
+    },
+    {
+      "id": "CVE-2025-38187",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: drm/nouveau: fix a use-after-free in r535_gsp_rpc_push()"
+    },
+    {
+      "id": "CVE-2025-38204",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: jfs: fix array-index-out-of-bounds read in add_missing_indices"
+    },
+    {
+      "id": "CVE-2025-38206",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: Kernel: Double free vulnerability in exFAT filesystem can lead to denial of service"
+    },
+    {
+      "id": "CVE-2025-38421",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: platform/x86/amd: pmf: Use device managed allocations"
+    },
+    {
+      "id": "CVE-2025-38584",
+      "package": "linux-libc-dev",
+      "installed": "6.12.74-2",
+      "fixed": "",
+      "title": "kernel: padata: Fix pd UAF once and for all"
+    }
+  ],
+  "python_specific": [
+    {
+      "id": "CVE-2026-23949",
+      "package": "jaraco.context",
+      "severity": "HIGH",
+      "title": "jaraco.context: jaraco.context: Path traversal via malicious tar archives"
+    },
+    {
+      "id": "CVE-2026-24049",
+      "package": "wheel",
+      "severity": "HIGH",
+      "title": "wheel: wheel: Privilege Escalation or Arbitrary Code Execution via malicious wheel file unpacking"
+    },
+    {
+      "id": "CVE-2026-24049",
+      "package": "wheel",
+      "severity": "HIGH",
+      "title": "wheel: wheel: Privilege Escalation or Arbitrary Code Execution via malicious wheel file unpacking"
+    }
+  ],
+  "dockerfile_issues": [
+    {
+      "issue": "Container runs as root",
+      "severity": "HIGH",
+      "detail": "No USER directive found. Container processes run as root by default, which increases blast radius if the container is compromised.",
+      "recommendation": "Add 'USER nonroot' or 'USER 1000' after installing dependencies."
+    },
+    {
+      "issue": "Unpinned base image tag",
+      "severity": "MEDIUM",
+      "detail": "'FROM python:3.11-slim' does not use a SHA256 digest pin. Tag-based references can change without notice.",
+      "recommendation": "Pin the base image with a SHA256 digest: FROM python:3.11-slim@sha256:<digest>"
+    },
+    {
+      "issue": "COPY . copies entire build context",
+      "severity": "MEDIUM",
+      "detail": "'COPY . /app' copies everything from the build context, potentially including .env files, .git directory, and other secrets.",
+      "recommendation": "Use a .dockerignore file and copy only needed files, or use multi-stage builds."
+    },
+    {
+      "issue": "No HEALTHCHECK defined",
+      "severity": "LOW",
+      "detail": "No HEALTHCHECK instruction found. Container orchestrators cannot automatically detect if the application is healthy.",
+      "recommendation": "Add HEALTHCHECK --interval=30s CMD curl -f http://localhost:5001/health || exit 1"
+    },
+    {
+      "issue": "Build tools in production image",
+      "severity": "MEDIUM",
+      "detail": "Build tools (build-essential, gcc) are installed but not removed in the final image. This increases attack surface and image size.",
+      "recommendation": "Use a multi-stage build: compile in a builder stage, copy only artifacts to a clean runtime stage."
+    },
+    {
+      "issue": "Unnecessary tools in production image",
+      "severity": "LOW",
+      "detail": "curl and/or git are installed in the final image but are unlikely to be needed at runtime. They could be used by an attacker for lateral movement.",
+      "recommendation": "Remove curl and git, or install them only in a build stage."
+    }
+  ],
+  "risk_assessment": {
+    "overall_risk": "HIGH",
+    "key_concerns": [
+      "34 HIGH severity vulnerabilities in container dependencies",
+      "3 vulnerabilities in Python packages",
+      "6 Dockerfile configuration issues"
+    ]
+  }
+}

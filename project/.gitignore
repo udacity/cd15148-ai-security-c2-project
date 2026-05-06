@@ -14,3 +14,4 @@ _cifar_cache/
 _dataset_cache/
 *.json
 !06_trivy_report.json
+!solution/attacks/results/**/*.json
