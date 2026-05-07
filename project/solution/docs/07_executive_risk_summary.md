@@ -2,7 +2,7 @@
 
 ## Overview
 
-A comprehensive red team assessment of FinanceGuard's AI-powered financial systems identified **five significant vulnerabilities** across the Receipt Classifier, Expense Chatbot, and deployment infrastructure. Two findings are rated CRITICAL or HIGH priority, requiring immediate attention.
+A comprehensive red team assessment of FinanceGuard's AI-powered financial systems identified **five significant vulnerabilities** across the Receipt Classifier, Expense Chatbot, and deployment infrastructure. Four findings are rated CRITICAL or HIGH priority, requiring immediate attention.
 
 ## Risk Dashboard
 
@@ -34,7 +34,7 @@ Confidential executive compensation data (salary ranges, bonus percentages, stoc
 
 ### 4. RAG Chatbot — Prompt Injection (MEDIUM)
 
-The chatbot is susceptible to prompt injection techniques, particularly encoding-based bypasses. Attackers can extract system prompt details and manipulate the chatbot's behavior beyond its intended scope.
+The chatbot is susceptible to prompt injection techniques, particularly encoding-based bypasses and direct instruction overrides. Attackers can manipulate the chatbot into disclosing confidential compensation data and acknowledging restricted material outside its intended scope. Direct system prompt extraction was blocked in this assessment.
 
 **Business Impact:** Could be combined with data exfiltration or used to generate misleading policy guidance.
 

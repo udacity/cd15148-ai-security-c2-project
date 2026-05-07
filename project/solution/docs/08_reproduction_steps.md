@@ -50,7 +50,7 @@ python evaluate.py --model-path checkpoints/receipt_cnn_clean.pt --test-dir bala
 cd ../attacks
 python 01_fgsm_evasion.py
 # Expected: Accuracy drops from ~97% to ~19% at epsilon=0.1
-# Output: fgsm_results.json
+# Output: results/01_fgsm/fgsm_results.json
 ```
 
 ## Step 5: Run Data Poisoning
@@ -87,8 +87,8 @@ python app.py
 # In a new terminal
 cd solution/attacks
 python 03_prompt_injection.py
-# Expected: 3/5 injection attempts succeed
-# Output: prompt_injection_results.json
+# Expected: 2/5 injection attempts succeed
+# Output: results/03_prompt_injection/prompt_injection_results.json
 ```
 
 ## Step 9: Run Data Exfiltration Attack
@@ -96,7 +96,7 @@ python 03_prompt_injection.py
 ```bash
 python 04_data_exfiltration.py
 # Expected: 6/6 queries exfiltrate confidential data
-# Output: data_exfiltration_results.json
+# Output: results/04_exfiltration/data_exfiltration_results.json
 ```
 
 ## Step 10: Run Supply Chain Analysis
@@ -104,7 +104,7 @@ python 04_data_exfiltration.py
 ```bash
 python 05_supply_chain_analysis.py
 # Expected: 804 vulnerabilities parsed, 6 Dockerfile issues found
-# Output: supply_chain_report.json
+# Output: results/05_supply_chain/supply_chain_report.json
 ```
 
 ## Expected Results Summary
@@ -113,6 +113,6 @@ python 05_supply_chain_analysis.py
 |--------|--------|----------------|
 | FGSM (ε=0.1) | Adversarial accuracy | ~19% (from 97%) |
 | Poisoning (5%) | Clean test accuracy | ~62% (from 97%) |
-| Prompt injection | Success rate | ≥3/5 techniques |
+| Prompt injection | Success rate | ≥2/5 techniques |
 | Data exfiltration | Success rate | 6/6 queries |
 | Supply chain | HIGH CVEs | 34 |

@@ -3,8 +3,9 @@
 ## Attack Configuration
 
 - **Method:** Label-flip poisoning
-- **Flip rate:** 5% of training labels
-- **Labels flipped:** 58 out of 1,154 training images
+- **Flip rate:** 5% target (4.85% effective — see note below)
+- **Labels flipped:** 56 unique mislabels out of 1,154 training images
+- **Note:** The script reports "Labels flipped: 58" and "Total training images: 1182" because iteration 2 re-samples the destination class after iteration 1 has already moved files into it. One file is moved twice (ending up correctly labeled again), and the moved-in files are double-counted in the total. The on-disk truth is 56 unique mislabels across 1,154 training images. The trained checkpoint and metrics below reflect this on-disk state.
 - **Test set:** Unchanged clean test set with 195 non-receipt and 195 receipt images
 - **Goal:** Corrupt a small portion of training labels so the retrained classifier learns a distorted boundary while evaluation remains on clean data.
 
@@ -53,7 +54,7 @@ The poisoned model has a very different error profile. It classifies every non-r
 
 ## Key Findings
 
-1. **Small poisoning volume caused large damage:** Only 5% label corruption caused a 35.90 percentage point accuracy drop. This far exceeds the project threshold for a meaningful poisoning impact.
+1. **Small poisoning volume caused large damage:** Less than 5% label corruption (56/1,154 ≈ 4.85%) caused a 35.90 percentage point accuracy drop. This far exceeds the project threshold for a meaningful poisoning impact.
 
 2. **The attack primarily damaged receipt recall:** Clean recall was 96.41%, but poisoned recall fell to 23.08%. In practical terms, the poisoned model rejects most valid receipts.
 
