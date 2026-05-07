@@ -37,16 +37,13 @@ Open `attacks/01_fgsm_evasion.py`. You need to implement:
    - Apply `fgsm_attack()` to create the adversarial image
    - Evaluate the model on the perturbed image
 
-3. **Visualize the attacks for FGSM `visualize_fgsm()`**
-   - Use matplotlib to visualize the clean image and then adversarial image
-   - Create a title that describes the image and the epsilon used
-   - Use the same image for each of the evaluations
-   - Note where the image starts to degrade and where a target would start to notice changes in the image 
-   - An attacker would like to change the outcome of a classifier without detection
-   - Save each image as a PNG called 'fgsm_results_<image_name>_<epsilon>.png'
+3. **Visual evidence (provided)**
+   - `visualize_fgsm()` is already implemented in the starter and is called automatically from `main()` for each epsilon.
+   - It saves a side-by-side clean vs adversarial PNG named `fgsm_results_<image_name>_<epsilon>.png` to `attacks/results/01_fgsm/`, using the same test sample at every epsilon so the comparison is meaningful.
+   - Your job is to **interpret** the output: embed the PNGs in `docs/fgsm_results_template.md` under "Visual Evidence" and write a short commentary on where the image starts to degrade visually versus where the model starts to fail. An attacker wants to change the classifier's output *without* a human reviewer noticing.
 
 4. **Expectations**
-   - There should be gradual degradation of the accuracy of the model as episolon increases for FGSM
+   - There should be gradual degradation of the accuracy of the model as epsilon increases for FGSM
 
 ### Run and Record Results
 
@@ -77,12 +74,10 @@ Open `attacks/02_label_flip_poisoning.py`. You need to implement:
    - Randomly select that many files
    - Move them to the opposite class folder (use a prefix to avoid name collisions)
 
-2. **Visualize the data attacks via  `visualize_flip()`**
-   - Use matplotlib to visualize the flipped label images
-   - Sample clean and flipped images to confirm that the labels are indeed flipped
-   - Create a title that describes the image and the label flip
-   - Look at least at five images
-   - Save each image as a PNG called 'label_flip_results_<number_of_images>.png'
+2. **Visual evidence (provided)**
+   - `visualize_flip()` is already implemented in the starter and is called automatically after `poison_dataset()` runs.
+   - It samples five flipped pairs (clean image next to its poisoned-label copy) and saves them as `label_flip_results_5.png` under `attacks/results/02_label_flip/`.
+   - Your job is to embed the PNG in `docs/poisoning_results_template.md` under "Label Flip Evidence" and confirm in writing that the attack changes labels, not pixel content. Pass `--visualize-count` to sample more pairs if you want.
 
 ### Run, Retrain, and Compare
 
