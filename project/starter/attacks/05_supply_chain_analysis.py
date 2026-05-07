@@ -12,6 +12,8 @@ import json
 import argparse
 import os
 
+RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results", "05_supply_chain")
+
 
 def parse_trivy_report(path):
     """
@@ -116,8 +118,14 @@ def main():
         "--dockerfile",
         default=os.path.join(os.path.dirname(__file__), "..", "Dockerfile"),
     )
-    parser.add_argument("--output", default="supply_chain_report.json")
+    parser.add_argument(
+        "--output",
+        default=os.path.join(RESULTS_DIR, "supply_chain_report.json"),
+    )
     args = parser.parse_args()
+    if not os.path.dirname(args.output):
+        args.output = os.path.join(RESULTS_DIR, args.output)
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
 
     print("Parsing Trivy report...")
     vulns = parse_trivy_report(args.trivy_report)

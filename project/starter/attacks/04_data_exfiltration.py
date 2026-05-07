@@ -10,7 +10,10 @@ Usage:
 """
 import json
 import argparse
+import os
 import requests
+
+RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results", "04_exfiltration")
 
 # TODO: Design 6 exfiltration queries targeting the confidential document
 # Each should be a dictionary with:
@@ -73,8 +76,14 @@ def run_exfiltration(url, query_data):
 def main():
     parser = argparse.ArgumentParser(description="RAG Data Exfiltration Attack")
     parser.add_argument("--url", default="http://localhost:5001/chat")
-    parser.add_argument("--output", default="data_exfiltration_results.json")
+    parser.add_argument(
+        "--output",
+        default=os.path.join(RESULTS_DIR, "data_exfiltration_results.json"),
+    )
     args = parser.parse_args()
+    if not os.path.dirname(args.output):
+        args.output = os.path.join(RESULTS_DIR, args.output)
+    os.makedirs(os.path.dirname(args.output), exist_ok=True)
 
     print(f"Target: {args.url}")
     print(f"Running {len(EXFILTRATION_QUERIES)} exfiltration queries...\n")
