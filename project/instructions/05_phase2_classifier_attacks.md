@@ -87,7 +87,7 @@ python 02_label_flip_poisoning.py
 
 # 2. Retrain on poisoned data
 cd ../classifier
-python train.py --data-dir poisoned_data --epochs 20 --checkpoint-name receipt_cnn_poisoned.pt
+python train.py --data-dir poisoned_data --checkpoint-name receipt_cnn_poisoned.pt
 
 # 3. Evaluate poisoned model on clean test set
 python evaluate.py --model-path checkpoints/receipt_cnn_poisoned.pt --test-dir balanced_data/test

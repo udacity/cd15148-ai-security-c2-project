@@ -58,7 +58,6 @@ def prepare_balanced_dataset(source_root, target_root, seed=42):
 def get_transform(train=False):
     if train:
         return transforms.Compose([
-            transforms.Resize((256, 256)),
             transforms.RandomCrop(224),
             transforms.RandomHorizontalFlip(),
             transforms.RandomRotation(10),
@@ -80,8 +79,8 @@ def get_data_loaders(data_root, batch_size=32):
     test_dataset = datasets.ImageFolder(
         os.path.join(data_root, "test"), transform=test_transform
     )
-    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True)
-    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False)
+    train_loader = DataLoader(train_dataset, batch_size=batch_size, shuffle=True, num_workers=2)
+    test_loader = DataLoader(test_dataset, batch_size=batch_size, shuffle=False, num_workers=2)
     return train_loader, test_loader
 
 

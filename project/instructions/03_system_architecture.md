@@ -6,23 +6,7 @@ FinanceGuard's AI infrastructure consists of two primary systems with distinct a
 
 ## Receipt Classifier
 
-```mermaid
-graph LR
-    A[Employee uploads image] --> B[Resize to 224x224]
-    B --> C[ReceiptCNN]
-    C --> D{Score > 0.5?}
-    D -->|Yes| E[Receipt - Process expense]
-    D -->|No| F[Non-receipt - Reject]
-
-    style C fill:#ff6b6b,stroke:#333
-
-    G[Training Data] --> H[DataLoader]
-    H --> I[Train ReceiptCNN]
-    I --> J[Checkpoint .pt file]
-    J --> C
-
-    style G fill:#ff6b6b,stroke:#333
-```
+![Receipt Classifier Pipeline](images/03_classifier.png)
 
 **Attack Surfaces:**
 - **Model input (FGSM):** Adversarial perturbations to input images can flip predictions
@@ -48,23 +32,7 @@ ReceiptCNN:
 
 ## RAG Chatbot
 
-```mermaid
-graph TD
-    A[Employee question] --> B[Embed query]
-    B --> C[FAISS similarity search]
-    C --> D[Top-k policy chunks]
-    D --> E[System prompt + context + question]
-    E --> F[LLM gpt-4o-mini]
-    F --> G[Answer]
-
-    H[Policy docs .md] --> I[Chunk text]
-    I --> J[Embed chunks]
-    J --> K[FAISS Index]
-    K --> C
-
-    style K fill:#ff6b6b,stroke:#333
-    style E fill:#ff6b6b,stroke:#333
-```
+![RAG Chatbot Pipeline](images/03_rag_chatbot.png)
 
 **Attack Surfaces:**
 - **Vector store (Exfiltration):** FAISS has no access control — any semantically similar query retrieves any document, including confidential ones
@@ -87,16 +55,6 @@ All 4 are indexed in the same FAISS vector store with **no access control differ
 
 ## Deployment Infrastructure
 
-```mermaid
-graph TD
-    A[Dockerfile] --> B[python:3.11-slim base]
-    B --> C[Install build-essential, gcc, curl, git]
-    C --> D[pip install requirements.txt]
-    D --> E[COPY . /app]
-    E --> F[Container runs as ROOT]
-
-    style F fill:#ff6b6b,stroke:#333
-    style E fill:#ff6b6b,stroke:#333
-```
+![Deployment Infrastructure](images/03_deployment.png)
 
 **Attack Surface:** The Dockerfile and container dependencies contain known vulnerabilities (CVEs) and configuration weaknesses that could be exploited.

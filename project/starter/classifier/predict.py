@@ -11,7 +11,12 @@ from PIL import Image
 from model import ReceiptCNN
 from data import get_transform
 
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    DEVICE = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    DEVICE = torch.device("mps")
+else:
+    DEVICE = torch.device("cpu")
 
 
 def predict(image_path, model_path="checkpoints/receipt_cnn_clean.pt"):

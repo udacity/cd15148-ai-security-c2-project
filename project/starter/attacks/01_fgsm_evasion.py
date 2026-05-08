@@ -26,7 +26,12 @@ from torch.utils.data import DataLoader
 from torchvision import datasets, transforms
 from model import ReceiptCNN
 
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    DEVICE = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    DEVICE = torch.device("mps")
+else:
+    DEVICE = torch.device("cpu")
 RESULTS_DIR = os.path.join(os.path.dirname(__file__), "results", "01_fgsm")
 
 

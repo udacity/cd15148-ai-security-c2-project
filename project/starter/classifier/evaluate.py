@@ -23,7 +23,12 @@ from sklearn.metrics import accuracy_score, precision_score, recall_score, f1_sc
 from model import ReceiptCNN
 from data import get_transform
 
-DEVICE = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+if torch.cuda.is_available():
+    DEVICE = torch.device("cuda")
+elif torch.backends.mps.is_available():
+    DEVICE = torch.device("mps")
+else:
+    DEVICE = torch.device("cpu")
 
 
 def evaluate_model(model_path, test_dir):
