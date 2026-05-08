@@ -54,9 +54,9 @@ This is critical for:
 Before submitting, verify against the rubric:
 
 1. All 5 attack scripts are implemented and produce output
-2. Clean model achieves >85% accuracy
+2. Clean model achieves >95% accuracy
 3. FGSM shows clear accuracy degradation across epsilons
-4. Poisoning shows measurable accuracy drop
+4. Poisoning produces at least a 5 percentage-point accuracy drop on the clean test set vs. the clean baseline
 5. Prompt injection has at least 5 diverse attempts with transcript
 6. Data exfiltration shows evidence of leaked confidential data
 7. Supply chain analysis categorizes vulnerabilities and identifies Dockerfile issues

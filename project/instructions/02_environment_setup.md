@@ -7,7 +7,7 @@ Open the Udacity workspace with GPU support. The starter files are pre-loaded in
 ## Step 2: Install Dependencies
 
 ```bash
-pip install torch torchvision scikit-learn numpy Pillow
+pip install torch torchvision scikit-learn numpy Pillow matplotlib
 pip install flask faiss-cpu openai python-dotenv requests
 ```
 
