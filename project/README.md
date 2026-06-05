@@ -19,9 +19,9 @@ project/
 │   ├── classifier/        # Trained models + balanced dataset
 │   ├── attacks/           # Completed attack scripts
 │   ├── rag_chatbot/       # Working chatbot with policies
+│   ├── requirements.txt   # All Python dependencies
 │   └── docs/              # Completed documentation
 ├── docs/                  # Instructor-facing materials
-├── requirements.txt       # All Python dependencies
 └── .gitignore
 ```
 
