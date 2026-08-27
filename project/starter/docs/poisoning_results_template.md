@@ -23,9 +23,6 @@
 | Precision | |
 | Recall | |
 | F1 Score | |
-| Confusion Matrix | |
-
-![Clean model confusion matrix](../attacks/results/02_label_flip/clean/confusion_matrix.png)
 
 ## Poisoned Model
 
@@ -35,9 +32,6 @@
 | Precision | |
 | Recall | |
 | F1 Score | |
-| Confusion Matrix | |
-
-![Poisoned model confusion matrix](../attacks/results/02_label_flip/poisoned/confusion_matrix.png)
 
 ## Impact Analysis
 
@@ -48,11 +42,23 @@
 | Recall | | | |
 | F1 | | | |
 
+## Confusion Matrices (Optional)
+
+<!-- Optional — not graded. Running `evaluate.py --results-dir <folder>` saves a
+     confusion_matrix.png next to metrics.json for each model. Embedding them is the
+     clearest way to show *which* class the poisoning actually damaged, which supports
+     the "which class was more affected" question below. Delete this section if you
+     choose not to include them. -->
+
+![Clean model confusion matrix](../attacks/results/02_label_flip/clean/confusion_matrix.png)
+
+![Poisoned model confusion matrix](../attacks/results/02_label_flip/poisoned/confusion_matrix.png)
+
 ## Key Findings
 
 <!-- Analyze:
 1. How significant is the accuracy drop?
 2. Which class was more affected and why?
-3. What does the confusion matrix tell you?
+3. If you included the confusion matrices, what do they tell you?
 4. What are the implications of this attack?
 -->
